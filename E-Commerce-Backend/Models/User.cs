@@ -1,35 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿using System;
+using System.Collections.Generic;
 
-namespace E_Commerce_Backend.Models
+namespace E_Commerce_Backend.Models;
+
+public partial class User
 {
-    public class User {
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public string Username { get; set; } = null!;
+    public string Username { get; set; } = null!;
 
-        public string Password { get; set; } = null!;
+    public string Password { get; set; } = null!;
 
-        public string Email { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
-        public string? FirstName { get; set; }
+    public string? FirstName { get; set; }
 
-        public string? LastName { get; set; }
+    public string? LastName { get; set; }
 
-        public DateOnly? DateOfBirth { get; set; }
+    public DateOnly? DateOfBirth { get; set; }
 
-        public string? PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
 
-        public string? Address { get; set; }
+    public string? Address { get; set; }
 
-        public string? Role { get; set; }
+    public string? Role { get; set; }
 
-        public ICollection<DeliveryAddress> DeliveryAddresses { get; set; } = new List<DeliveryAddress>();
+    public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; } = new List<DeliveryAddress>();
 
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-
-    }
+    public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
 }
