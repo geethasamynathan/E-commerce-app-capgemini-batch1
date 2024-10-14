@@ -31,6 +31,7 @@ public partial class EcommerceContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-53CAHRUR;Database=ECommerce;Trusted_Connection=True;TrustServerCertificate=True");
         => optionsBuilder.UseSqlServer("Server=DESKTOP-B3NR744;Database=ECommerce;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,7 +57,11 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<Inventory>(entity =>
         {
+
+            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B31C2BEF1C");
+
             entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B303AF779C");
+
 
             entity.ToTable("Inventory");
 
