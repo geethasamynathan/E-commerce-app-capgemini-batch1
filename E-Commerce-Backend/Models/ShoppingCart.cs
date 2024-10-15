@@ -1,19 +1,23 @@
-﻿namespace E_Commerce_Backend.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace E_Commerce_Backend.Models;
+
+public partial class ShoppingCart
 {
-    public class ShoppingCart
-    {
-        public int CartId { get; set; }
+    public int CartId { get; set; }
 
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public int? ProductId { get; set; }
+    public int? ProductId { get; set; }
 
-        public decimal? TotalAmount { get; set; }
+    public decimal? TotalAmount { get; set; }
 
-        public DateTime? CreatedDate { get; set; }
+    public int Quantity { get; set; }
 
-        public  Product? Product { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
-        public  User User { get; set; } = null!;
-    }
+    public virtual Product? Product { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }
