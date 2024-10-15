@@ -14,4 +14,5 @@ public partial class Inventory
     public DateTime LastUpdated { get; set; }
 
     public virtual Product Product { get; set; } = null!;
+
 }

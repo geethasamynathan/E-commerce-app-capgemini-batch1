@@ -60,6 +60,7 @@ public partial class EcommerceContext : DbContext
         {
             entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B31851F00E");
 
+
             entity.ToTable("Inventory");
 
             entity.Property(e => e.InventoryId).ValueGeneratedNever();

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
-
-namespace E_commerce_frontend.Models
+﻿namespace E_Commerce_Backend.DTO
 {
-    public class Product
+    public class ProductDTO
     {
         public int ProductId { get; set; }
 
@@ -12,16 +10,15 @@ namespace E_commerce_frontend.Models
 
         public decimal Price { get; set; }
 
-       public string? Category { get; set; }
+        public string? Category { get; set; }
 
-      //  public int? StockQuantity { get; set; }
+        //public int? StockQuantity { get; set; }
 
         //public string? ImageUrl { get; set; }
 
         //public decimal? Rating { get; set; }
 
         //public string? Reviews { get; set; }
-       
-        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
     }
+
 }
