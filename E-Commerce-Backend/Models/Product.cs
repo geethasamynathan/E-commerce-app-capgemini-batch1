@@ -21,6 +21,7 @@ namespace E_Commerce_Backend.Models
         public decimal? Rating { get; set; }
 
         public string? Reviews { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
         public ICollection<Review> ReviewsNavigation { get; set; } = new List<Review>();
