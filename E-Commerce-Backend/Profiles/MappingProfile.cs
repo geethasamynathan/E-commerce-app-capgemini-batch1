@@ -1,0 +1,18 @@
+﻿using AutoMapper;
+using E_Commerce_Backend.DTO;
+using E_Commerce_Backend.Models;
+
+namespace E_Commerce_Backend.Profiles
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Product, ProductDTO>();
+            CreateMap<ProductDTO, Product>();
+
+            // (or)
+            //CreateMap<Product, ProductDTO>().ReverseMap();
+        }
+    }
+}

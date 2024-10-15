@@ -23,7 +23,9 @@ public partial class Product
 
     public string? Reviews { get; set; }
 
+
     public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
