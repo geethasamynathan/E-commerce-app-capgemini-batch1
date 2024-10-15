@@ -1,21 +1,23 @@
-﻿namespace E_Commerce_Backend.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace E_Commerce_Backend.Models;
+
+public partial class Review
 {
-    public class Review
-    {
-        public int ReviewId { get; set; }
+    public int ReviewId { get; set; }
 
-        public int? UserId { get; set; }
+    public int? UserId { get; set; }
 
-        public int? ProductId { get; set; }
+    public int? ProductId { get; set; }
 
-        public decimal? Rating { get; set; }
+    public decimal? Rating { get; set; }
 
-        public string? Comment { get; set; }
+    public string? Comment { get; set; }
 
-        public DateTime? ReviewDate { get; set; }
+    public DateTime? ReviewDate { get; set; }
 
-        public  Product? Product { get; set; }
+    public virtual Product? Product { get; set; }
 
-        public  User? User { get; set; }
-    }
+    public virtual User? User { get; set; }
 }
