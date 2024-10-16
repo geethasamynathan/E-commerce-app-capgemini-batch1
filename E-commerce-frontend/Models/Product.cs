@@ -22,5 +22,6 @@ namespace E_commerce_frontend.Models
 
         //public string? Reviews { get; set; }
        
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; } = new List<ShoppingCart>();
     }
 }
