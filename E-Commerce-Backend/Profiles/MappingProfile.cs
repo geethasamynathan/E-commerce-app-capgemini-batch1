@@ -10,9 +10,10 @@ namespace E_Commerce_Backend.Profiles
         {
             CreateMap<Product, ProductDTO>();
             CreateMap<ProductDTO, Product>();
+            CreateMap<Review, ReviewDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
 
-            // (or)
-            //CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<UserProduct, UserProductDTO>().ReverseMap();
         }
     }
 }

@@ -3,13 +3,13 @@ using E_Commerce_Backend.Models;
 
 namespace E_Commerce_Backend.Mappings
 {
-    public static class ProductMapper
+    public static class UserMapper
     {
-        public static ProductDTO ToProductDTO(Product product)
+        public static UserProductDTO ToUserProductDTO(UserProduct product)
         {
-            return new ProductDTO
+            return new UserProductDTO
             {
-                ProductId = product.ProductId,
+                UserProductId = product.UserProductId,
                 ProductName = product.ProductName,
                // Description = product.Description,
                 Price = product.Price,
@@ -21,21 +21,22 @@ namespace E_Commerce_Backend.Mappings
             };
         }
 
-        public static Product ToProduct(ProductDTO productDTO)
+        public static UserProduct ToUserProduct(UserProductDTO productDTO)
         {
-            return new Product
+            return new UserProduct
             {
-                ProductId = productDTO.ProductId,
+                UserProductId = productDTO.UserProductId,
                 ProductName = productDTO.ProductName,
-                //Description = productDTO.Description,
-                //Price = productDTO.Price,
+                // = productDTO.Description,
+                Price = productDTO.Price,
                 Category = productDTO.Category,
-                //StockQuantity = productDTO.StockQuantity,
+               // StockQuantity = productDTO.StockQuantity,
                 ImageUrl = productDTO.ImageUrl,
-                //Rating = productDTO.Rating,
+               // Rating = productDTO.Rating,
                 //Reviews = productDTO.Reviews
             };
         }
     }
 
 }
+

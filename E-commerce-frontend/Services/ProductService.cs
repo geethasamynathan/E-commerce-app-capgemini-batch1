@@ -1,4 +1,5 @@
 ﻿using E_commerce_frontend.Models;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ namespace E_commerce_frontend.Services
     {
         private readonly List<Product> _products = new List<Product>();
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _config;
+        private readonly IConfiguration _config; 
         string url = "";
         public ProductService(HttpClient httpClient,
             IConfiguration configuration)
@@ -75,14 +76,14 @@ namespace E_commerce_frontend.Services
 
         public async Task<List<Product>> GetAllProducts()
         {
-            var response =await  _httpClient.GetAsync(url);
+            var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
             var products = JsonSerializer.Deserialize<List<Product>>(jsonResponse, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
-           
+
             return products;
         }
 

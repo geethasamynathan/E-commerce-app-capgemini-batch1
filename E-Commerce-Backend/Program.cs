@@ -14,7 +14,10 @@ builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("defaultconnection")));
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
-
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IUserProductService, UserProductService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddLogging();
 builder.Services.AddControllers().AddNewtonsoftJson();

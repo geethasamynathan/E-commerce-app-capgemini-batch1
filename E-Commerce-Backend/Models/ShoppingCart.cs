@@ -10,10 +10,13 @@
 
         public decimal? TotalAmount { get; set; }
 
+        public int Quantity { get; set; }
+
         public DateTime? CreatedDate { get; set; }
 
-        public  Product? Product { get; set; }
+        public virtual Product? Product { get; set; }
 
-        public  User User { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
+
     }
 }
