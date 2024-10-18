@@ -1,4 +1,10 @@
-﻿namespace E_Commerce_Backend.Models
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace E_Commerce_Backend.Models;
+
+public partial class Order
 {
     public class Order
     {
@@ -13,3 +19,4 @@
         public virtual User User { get; set; } = null!;
     }
 }
+

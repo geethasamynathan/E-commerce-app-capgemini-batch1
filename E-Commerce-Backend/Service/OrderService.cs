@@ -3,7 +3,7 @@ using E_Commerce_Backend.Models;
 
 namespace E_Commerce_Backend.Service
 {
-    public class OrderService : IOrderService
+    public class OrderService:IOrderService
     {
         private readonly EcommerceContext _context;
         public OrderService(EcommerceContext context)
@@ -55,6 +55,7 @@ namespace E_Commerce_Backend.Service
             }
             return null;
         }
+
         public void Delete(int id)
         {
             var order = GetById(id)
@@ -66,6 +67,7 @@ namespace E_Commerce_Backend.Service
                 _context.SaveChanges();
             }
         }
+
         public decimal TotalPrice(int orderId)
         {
             var totalPrice = (from order in _context.Orders

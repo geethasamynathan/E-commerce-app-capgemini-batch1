@@ -2,8 +2,8 @@
 using E_Commerce_Backend.DTO;
 using E_Commerce_Backend.IService;
 using E_Commerce_Backend.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.ConstrainedExecution;
 
 namespace E_Commerce_Backend.Controllers
 {
@@ -36,6 +36,7 @@ namespace E_Commerce_Backend.Controllers
                 return NotFound();
             }
         }
+
         [HttpGet("{id}")]
         public ActionResult<OrderDTO> GetById(int id)
         {
@@ -46,21 +47,25 @@ namespace E_Commerce_Backend.Controllers
             {
                 return NotFound();
             }
+
             var orderDTO = _mapper.Map<OrderDTO>(order);
             return orderDTO;
         }
+
         [HttpGet("user/{userId}")]
         public IActionResult GetByUserId(int userId)
         {
             var orders = _orderRepository.GetByUserId(userId);
             return Ok(orders);
         }
+
         [HttpGet("status/{status}")]
         public IActionResult GetByStatus(string status)
         {
             var orders = _orderRepository.GetByStatus(status);
             return Ok(orders);
         }
+
         [HttpPost]
         public IActionResult Add([FromBody] OrderDTO orderdto)
         {
@@ -68,7 +73,7 @@ namespace E_Commerce_Backend.Controllers
             order.OrderDate = DateTime.Now;
             order.Status = "Pending";
             _orderRepository.Add(order);
-            // _orderRepository.SaveChanges();
+          // _orderRepository.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { id = order.OrderId }, orderdto);
         }
