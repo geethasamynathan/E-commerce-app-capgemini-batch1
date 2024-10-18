@@ -38,12 +38,14 @@ namespace E_Commerce_Backend.Controllers
             return Ok();
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetCartItems(int userId)
         {
             var cartItems = await _shoppingCartService.GetCartItems(userId);
             return Ok(cartItems);
         }
+
 
         [HttpGet("total")]
         public async Task<IActionResult> GetCartTotalAmount(int userId)
@@ -52,7 +54,6 @@ namespace E_Commerce_Backend.Controllers
             return Ok(totalAmount);
         }
     }
-
 
 
 }

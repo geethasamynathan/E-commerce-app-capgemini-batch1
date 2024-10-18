@@ -21,6 +21,8 @@ public partial class EcommerceContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
+    public virtual DbSet<Payment> Payments { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<UserProduct> UserProducts { get; set; }
 
@@ -29,10 +31,6 @@ public partial class EcommerceContext : DbContext
     public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//            => optionsBuilder.UseSqlServer("Server=DESKTOP-18VV9A6;Database=ECommerce;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,17 +55,15 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<Inventory>(entity =>
         {
-                entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B33ED2C760");
-
+            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B33ED2C760");
             entity.ToTable("Inventory");
-
             entity.Property(e => e.InventoryId).ValueGeneratedNever();
             entity.Property(e => e.LastUpdated).HasColumnType("datetime");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Inventories)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Inventory__Produ__59063A47");
+                .HasConstraintName("FK__Inventory__Produ__49C3F6B7");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -89,6 +85,24 @@ public partial class EcommerceContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Orders__UserID__3A81B327");
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__9B556A3800E76A60");
+
+            entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Date)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.PaymentMethod).HasMaxLength(50);
+            entity.Property(e => e.Status).HasMaxLength(20);
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Payments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Payment_User");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -128,7 +142,7 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<ShoppingCart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Shopping__51BCD7978915761A");
+            entity.HasKey(e => e.CartId).HasName("PK__Shopping__51BCD7974287C8C8");
 
             entity.Property(e => e.CartId).HasColumnName("CartID");
             entity.Property(e => e.CreatedDate)
@@ -140,12 +154,12 @@ public partial class EcommerceContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.ShoppingCarts)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__ShoppingC__Produ__34C8D9D1");
+                .HasConstraintName("FK__ShoppingC__Produ__52593CB8");
 
             entity.HasOne(d => d.User).WithMany(p => p.ShoppingCarts)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ShoppingC__UserI__33D4B598");
+                .HasConstraintName("FK__ShoppingC__UserI__5165187F");
         });
 
         modelBuilder.Entity<User>(entity =>

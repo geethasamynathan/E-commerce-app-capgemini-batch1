@@ -1,6 +1,10 @@
-using E_commerce_frontend.Services;
+using E_commerce_frontend.Service;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient<ShoppingCartHttpClientService, ShoppingCartHttpClientService>();
+
+builder.Services.AddControllers();
+
 
 // Add services to the container.
 
