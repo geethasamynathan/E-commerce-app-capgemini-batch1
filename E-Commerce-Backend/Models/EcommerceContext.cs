@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_Commerce_Backend.Models;
-
+namespace E_Commerce_Backend.Models
+{
 public partial class EcommerceContext : DbContext
 {
     public EcommerceContext()
@@ -24,16 +24,13 @@ public partial class EcommerceContext : DbContext
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<UserProduct> UserProducts { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
 
     public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ECommerce;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,11 +55,8 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<Inventory>(entity =>
         {
-            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B31851F00E");
-
-
+            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__F5FDE6B33ED2C760");
             entity.ToTable("Inventory");
-
             entity.Property(e => e.InventoryId).ValueGeneratedNever();
             entity.Property(e => e.LastUpdated).HasColumnType("datetime");
 
@@ -189,4 +183,5 @@ public partial class EcommerceContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+}
 }

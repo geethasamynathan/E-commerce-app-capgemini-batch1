@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using E_Commerce_Backend.DTO;
+using E_Commerce_Backend.IService;
 using E_Commerce_Backend.Models;
-using E_Commerce_Backend.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.ConstrainedExecution;
 
@@ -40,7 +40,9 @@ namespace E_Commerce_Backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<OrderDTO> GetById(int id)
         {
-            var order =  _context.Orders.Find(id);
+            var order = _context.Orders.Find(id)
+
+    ;
             if (order == null)
             {
                 return NotFound();
@@ -68,13 +70,14 @@ namespace E_Commerce_Backend.Controllers
         public IActionResult Add([FromBody] OrderDTO orderdto)
         {
             var order = _mapper.Map<Order>(orderdto);
+            order.OrderDate = DateTime.Now;
+            order.Status = "Pending";
             _orderRepository.Add(order);
           // _orderRepository.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { id = order.OrderId }, orderdto);
         }
-
-        [HttpPut("{id}/update")]
+        [HttpPut]
         public IActionResult Update(int id, [FromBody] OrderDTO orderdto)
         {
             if (id != orderdto.OrderId)
@@ -82,7 +85,10 @@ namespace E_Commerce_Backend.Controllers
                 return BadRequest();
             }
 
-            var existingOrder = _orderRepository.GetById(id);
+            var existingOrder = _orderRepository.GetById(id)
+
+    ;
+
             if (existingOrder == null)
             {
                 return NotFound();
@@ -90,20 +96,27 @@ namespace E_Commerce_Backend.Controllers
             existingOrder.UserId = orderdto.UserId;
             existingOrder.ProductId = orderdto.ProductId;
             existingOrder.OrderId = orderdto.OrderId;
-            return NoContent();
+            existingOrder.Quantity = orderdto.Quantity;
+            Order order = _mapper.Map<Order>(orderdto);
+            order.OrderDate = DateTime.Now;
+            order.Status = "Pending";
+            _orderRepository.Update(order);
+            return Ok();
         }
-
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var order = _orderRepository.GetById(id);
+            var order = _orderRepository.GetById(id)
+
+    ;
             if (order == null)
             {
                 return NotFound();
             }
+            _orderRepository.Delete(id)
 
-            _orderRepository.Delete(id);
-            return NoContent();
+    ;
+            return Ok();
         }
     }
 }

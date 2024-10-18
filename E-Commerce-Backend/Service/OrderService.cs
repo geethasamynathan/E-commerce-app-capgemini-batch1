@@ -1,4 +1,5 @@
-﻿using E_Commerce_Backend.Models;
+﻿using E_Commerce_Backend.IService;
+using E_Commerce_Backend.Models;
 
 namespace E_Commerce_Backend.Service
 {
@@ -26,15 +27,20 @@ namespace E_Commerce_Backend.Service
 
         public IEnumerable<Order> GetByStatus(string status)
         {
-            return _context.Orders.Where(o => o.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+            var orders = _context.Orders
+                        .AsEnumerable()
+                        .Where(o => o.Status.Equals(status, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+            return orders;
         }
 
         public void Add(Order order)
         {
+            order.TotalAmount = TotalPrice(order.OrderId);
             _context.Orders.Add(order);
+            _context.SaveChanges();
         }
-
-        public void Update(Order order)
+        public Order Update(Order order)
         {
             var existingOrder = GetById(order.OrderId);
             if (existingOrder != null)
@@ -43,15 +49,22 @@ namespace E_Commerce_Backend.Service
                 existingOrder.OrderDate = order.OrderDate;
                 existingOrder.Status = order.Status;
                 existingOrder.TotalAmount = order.TotalAmount;
+                // _context.Orders.Add(existingOrder);
+                _context.SaveChanges();
+                return existingOrder;
             }
+            return null;
         }
 
         public void Delete(int id)
         {
-            var order = GetById(id);
+            var order = GetById(id)
+
+    ;
             if (order != null)
             {
                 _context.Orders.Remove(order);
+                _context.SaveChanges();
             }
         }
 

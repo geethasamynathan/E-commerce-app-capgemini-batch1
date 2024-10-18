@@ -1,10 +1,11 @@
 ﻿using E_Commerce_Backend.DTO;
-using E_Commerce_Backend.IServices;
+using E_Commerce_Backend.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce_Backend.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ShoppingCartController : ControllerBase
@@ -37,12 +38,14 @@ namespace E_Commerce_Backend.Controllers
             return Ok();
         }
 
-       // [HttpGet]
-        //public async Task<IActionResult> GetCartItems(int userId)
-        //{
-        //    var cartItems = await _shoppingCartService.GetCartItems(userId);
-        //    return Ok(cartItems);
-        //}
+
+        [HttpGet]
+        public async Task<IActionResult> GetCartItems(int userId)
+        {
+            var cartItems = await _shoppingCartService.GetCartItems(userId);
+            return Ok(cartItems);
+        }
+
 
         [HttpGet("total")]
         public async Task<IActionResult> GetCartTotalAmount(int userId)
